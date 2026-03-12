@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elian Varela Verdugo — Sculpteur · Tôle Martelée</title>
+  <meta name="description" content="Elian Varela Verdugo, sculpteur argentin basé à Saint-Malo. Spécialiste de la tôle martelée — sculptures figuratives en métal recyclé. Disponible pour expositions, commandes et collaborations." />
+  <meta property="og:title" content="Elian Varela Verdugo — Sculpteur" />
+  <meta property="og:description" content="Sculptures en tôle martelée, métal recyclé. Figuration réaliste. Saint-Malo, France." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="images/og.jpg" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚒</text></svg>" />
+  <style>
+    :root {
+      --black:#0A0908;--dark:#111010;--dark2:#1A1917;--mid:#2A2825;
+      --border:#2E2C29;--border2:#3A3835;
+      --copper:#B5742A;--copper2:#D4944A;--gold:#C9A256;
+      --silver:#8A9098;--white:#F2EDE8;--white2:#D8D0C8;--muted:#6E6860;
+      --font-d:'Didot','Bodoni MT','Playfair Display','Times New Roman',Georgia,serif;
+      --font-b:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;
+      --font-m:'Courier New',Courier,monospace;
+      --ease:cubic-bezier(.4,0,.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{background:var(--black);color:var(--white);font-family:var(--font-b);line-height:1.6;overflow-x:hidden;cursor:none}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    button{cursor:none;border:none;background:none;font-family:inherit}
+    ul{list-style:none}
+
+    /* CURSOR */
+    #cur{position:fixed;z-index:9999;width:8px;height:8px;background:var(--copper);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s}
+    #cur-r{position:fixed;z-index:9998;width:36px;height:36px;border:1px solid rgba(181,116,42,.4);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .4s,height .4s,opacity .3s}
+    @media(hover:none){#cur,#cur-r{display:none}body,button{cursor:auto}a,button{cursor:pointer}}
+
+    /* UTILS */
+    .container{max-width:1200px;margin:0 auto;padding:0 32px}
+    .section{padding:120px 0}
+    .eyebrow{font-family:var(--font-m);font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--copper);margin-bottom:16px;display:block}
+    .section-title{font-family:var(--font-d);font-size:clamp(2rem,3.5vw,3rem);font-weight:400;line-height:1.1;color:var(--white);margin-bottom:64px}
+
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+    .reveal.visible{opacity:1;transform:none}
+    .rl{opacity:0;transform:translateX(-32px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+    .rl.visible{opacity:1;transform:none}
+    .rr{opacity:0;transform:translateX(32px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+    .rr.visible{opacity:1;transform:none}
+    .d1{transition-delay:.1s!important}.d2{transition-delay:.2s!important}.d3{transition-delay:.3s!important}.d4{transition-delay:.4s!important}.d5{transition-delay:.5s!important}
+
+    /* NAV */
+    #nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 32px;border-bottom:1px solid transparent;transition:background .5s,border-color .5s}
+    #nav.scrolled{background:rgba(10,9,8,.92);backdrop-filter:blur(16px);border-color:var(--border)}
+    .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px}
+    .nav-logo{font-family:var(--font-d);font-size:1rem;letter-spacing:.06em}
+    .nav-logo span{color:var(--copper)}
+    .nav-links{display:flex;gap:40px;align-items:center}
+    .nav-links a{font-family:var(--font-m);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:color .3s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--copper);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+    .nav-links a:hover{color:var(--white)}
+    .nav-links a:hover::after{transform:scaleX(1)}
+    .nav-controls{display:flex;gap:8px;align-items:center}
+    .nav-btn{padding:6px 14px;border:1px solid var(--border2);font-family:var(--font-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:all .3s}
+    .nav-btn:hover{border-color:var(--copper);color:var(--copper)}
+    #menuToggle{display:none;width:40px;height:40px;align-items:center;justify-content:center;color:var(--white);font-size:1.2rem}
+
+    /* HERO */
+    #hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+    .hero-left{display:flex;align-items:flex-end;padding:120px 48px 80px 32px;position:relative;z-index:2}
+    .hero-left::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--black) 60%,transparent);z-index:1}
+    .hero-content{position:relative;z-index:2;max-width:560px}
+    .hero-tag{font-family:var(--font-m);font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--copper);margin-bottom:32px;display:flex;align-items:center;gap:16px;opacity:0;animation:fUp .8s .3s forwards}
+    .hero-tag::before{content:'';display:block;width:32px;height:1px;background:var(--copper)}
+    .hero-name{font-family:var(--font-d);font-size:clamp(3rem,6vw,6rem);font-weight:400;line-height:.95;letter-spacing:-.02em;margin-bottom:4px;opacity:0;animation:fUp .9s .45s forwards}
+    .hero-sub{font-family:var(--font-d);font-size:clamp(1.5rem,3vw,3rem);font-weight:400;font-style:italic;color:var(--copper2);line-height:1;margin-bottom:36px;opacity:0;animation:fUp .9s .55s forwards}
+    .hero-loc{font-family:var(--font-m);font-size:.65rem;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:10px;opacity:0;animation:fUp .9s .65s forwards}
+    .hero-loc::before{content:'◆';font-size:.4rem;color:var(--copper)}
+    .hero-phrase{font-size:1rem;line-height:1.8;color:var(--silver);max-width:440px;margin-bottom:48px;opacity:0;animation:fUp .9s .75s forwards}
+    .hero-phrase em{color:var(--copper2);font-style:italic}
+    .hero-cta{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fUp .9s .85s forwards}
+    .btn-cta{padding:14px 36px;background:var(--copper);color:var(--black);font-family:var(--font-m);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;transition:all .3s;display:inline-block}
+    .btn-cta:hover{background:var(--copper2);transform:translateY(-2px)}
+    .btn-ghost{padding:14px 36px;border:1px solid var(--border2);color:var(--white2);font-family:var(--font-m);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;transition:all .3s;display:inline-block}
+    .btn-ghost:hover{border-color:var(--copper);color:var(--copper);transform:translateY(-2px)}
+    .hero-right{position:relative;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--dark2),var(--mid));display:flex;align-items:center;justify-content:center}
+    .hero-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:var(--muted)}
+    .hero-ph-i{font-size:4rem;opacity:.15}
+    .hero-ph-t{font-family:var(--font-m);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;opacity:.4}
+    .hero-side-text{position:absolute;bottom:32px;right:32px;z-index:2;writing-mode:vertical-rl;font-family:var(--font-m);font-size:.6rem;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;opacity:.5}
+    .hero-scroll{position:absolute;bottom:40px;left:32px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;animation:fUp .8s 1.2s forwards}
+    .hero-scroll span{font-family:var(--font-m);font-size:.55rem;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+    .scroll-line{width:1px;height:48px;background:linear-gradient(var(--copper),transparent);animation:sPulse 2s ease-in-out infinite}
+    @keyframes fUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+    @keyframes hZoom{from{transform:scale(1)}to{transform:scale(1.06)}}
+    @keyframes sPulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+    /* GALLERY */
+    #galerie{background:var(--dark)}
+    .gal-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:64px}
+    .gal-count{font-family:var(--font-m);font-size:.65rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;padding-bottom:4px}
+    .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .card{position:relative;overflow:hidden;aspect-ratio:4/3;cursor:none;background:var(--mid)}
+    .card:nth-child(1){aspect-ratio:3/4}
+    .card:nth-child(4){aspect-ratio:3/4}
+    .card-img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease),filter .5s;filter:brightness(.85) saturate(.9)}
+    .card:hover .card-img{transform:scale(1.06);filter:brightness(.65) saturate(1.1)}
+    .card-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg,var(--dark2),var(--mid));color:var(--muted)}
+    .card-ph i{font-size:2.5rem;opacity:.2;font-style:normal}
+    .card-ph s{font-family:var(--font-m);font-size:.6rem;letter-spacing:.15em;opacity:.5;text-decoration:none}
+    .card-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,8,.95) 0%,rgba(10,9,8,.1) 50%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;opacity:0;transition:opacity .4s}
+    .card:hover .card-ov{opacity:1}
+    .c-num{font-family:var(--font-m);font-size:.6rem;letter-spacing:.2em;color:var(--copper);margin-bottom:8px}
+    .c-tit{font-family:var(--font-d);font-size:1.2rem;font-weight:400;color:var(--white);margin-bottom:4px;transform:translateY(8px);transition:transform .4s .05s}
+    .card:hover .c-tit{transform:none}
+    .c-met{font-family:var(--font-m);font-size:.6rem;letter-spacing:.12em;color:var(--silver);text-transform:uppercase;transform:translateY(8px);transition:transform .4s .1s;display:flex;gap:16px}
+    .card:hover .c-met{transform:none}
+    .c-arr{position:absolute;top:20px;right:20px;width:36px;height:36px;border:1px solid rgba(181,116,42,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--copper);opacity:0;transition:opacity .3s,transform .3s;transform:scale(.8)}
+    .card:hover .c-arr{opacity:1;transform:scale(1)}
+
+    /* MODAL */
+    #modal{position:fixed;inset:0;z-index:800;display:none;align-items:center;justify-content:center;padding:24px}
+    #modal.open{display:flex}
+    .m-bg{position:absolute;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(8px);animation:fBg .4s ease}
+    .m-box{position:relative;z-index:1;background:var(--dark2);border:1px solid var(--border);max-width:900px;width:100%;max-height:90vh;overflow-y:auto;animation:mIn .4s var(--ease);display:grid;grid-template-columns:1fr 1fr}
+    .m-imgs{overflow:hidden;position:relative;min-height:400px;background:var(--mid)}
+    .m-imgs img,.m-ph{width:100%;height:100%;object-fit:cover}
+    .m-ph{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:3rem;opacity:.2}
+    .m-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:6px}
+    .dot{width:6px;height:6px;border-radius:50%;background:var(--muted);transition:background .3s;cursor:pointer}
+    .dot.active{background:var(--copper)}
+    .m-info{padding:40px;display:flex;flex-direction:column;justify-content:center}
+    .m-ey{font-family:var(--font-m);font-size:.6rem;letter-spacing:.3em;color:var(--copper);text-transform:uppercase;margin-bottom:16px}
+    .m-tit{font-family:var(--font-d);font-size:1.8rem;font-weight:400;margin-bottom:20px;color:var(--white);line-height:1.1}
+    .m-specs{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;padding:20px;background:var(--dark);border-left:2px solid var(--copper)}
+    .sp-r{display:flex;justify-content:space-between;align-items:baseline}
+    .sp-l{font-family:var(--font-m);font-size:.6rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+    .sp-v{font-size:.85rem;color:var(--white2)}
+    .m-desc{font-size:.9rem;line-height:1.8;color:var(--silver)}
+    .m-close{margin-top:28px;padding:10px 24px;border:1px solid var(--border2);font-family:var(--font-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:all .3s;display:inline-block}
+    .m-close:hover{border-color:var(--copper);color:var(--copper)}
+    .m-x{position:absolute;top:16px;right:16px;z-index:2;width:40px;height:40px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1rem;transition:all .3s}
+    .m-x:hover{border-color:var(--copper);color:var(--copper)}
+    @keyframes fBg{from{opacity:0}to{opacity:1}}
+    @keyframes mIn{from{opacity:0;transform:scale(.96)translateY(16px)}to{opacity:1;transform:none}}
+
+    /* ABOUT */
+    #about{background:var(--black)}
+    .about-in{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
+    .about-l{position:sticky;top:120px}
+    .bio-ph-wrap{width:100%;aspect-ratio:3/4;overflow:hidden;position:relative;background:var(--dark2)}
+    .bio-ph-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .8s var(--ease);filter:grayscale(.2) contrast(1.05)}
+    .bio-ph-wrap:hover img{transform:scale(1.03)}
+    .bio-cap{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(transparent,rgba(10,9,8,.9));font-family:var(--font-m);font-size:.58rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+    .bio-ph-empty{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:var(--muted);background:var(--dark2)}
+    .bio-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:1px}
+    .stat{background:var(--dark2);padding:24px}
+    .stat-n{font-family:var(--font-d);font-size:2.5rem;font-weight:400;color:var(--copper);line-height:1;margin-bottom:4px}
+    .stat-l{font-family:var(--font-m);font-size:.6rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+    .stmt-q{font-family:var(--font-d);font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:400;font-style:italic;line-height:1.4;color:var(--white);margin-bottom:32px;padding-left:24px;border-left:2px solid var(--copper)}
+    .stmt-txt p{font-size:.95rem;line-height:1.9;color:var(--silver);margin-bottom:20px}
+
+    /* EXPOSITIONS */
+    #expositions{background:var(--dark)}
+    .expo-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+    .expo-card{background:var(--dark2);padding:36px;position:relative;overflow:hidden;transition:background .3s}
+    .expo-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background .3s}
+    .expo-card:hover{background:var(--mid)}
+    .expo-card:hover::before{background:var(--copper)}
+    .expo-yr{font-family:var(--font-d);font-size:3.5rem;font-weight:400;color:var(--border2);line-height:1;margin-bottom:16px;transition:color .3s}
+    .expo-card:hover .expo-yr{color:var(--copper)}
+    .expo-nm{font-family:var(--font-d);font-size:1.15rem;font-weight:400;color:var(--white);margin-bottom:8px}
+    .expo-ve{font-size:.85rem;color:var(--silver);margin-bottom:4px}
+    .expo-ci{font-family:var(--font-m);font-size:.62rem;letter-spacing:.15em;color:var(--copper);text-transform:uppercase}
+    .expo-ds{font-size:.82rem;color:var(--muted);margin-top:12px;line-height:1.7}
+
+    /* PROCESS */
+    #processus{background:var(--black)}
+    .proc-track{display:grid;grid-template-columns:repeat(3,1fr)}
+    .proc-step{padding:0 32px 0 0}
+    .proc-nc{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+    .proc-circle{width:48px;height:48px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:1.1rem;color:var(--copper);flex-shrink:0}
+    .proc-icon{font-size:2rem;margin-bottom:20px}
+    .proc-step h3{font-family:var(--font-d);font-size:1.2rem;font-weight:400;color:var(--white);margin-bottom:12px}
+    .proc-step p{font-size:.88rem;color:var(--silver);line-height:1.8}
+
+    /* CONTACT */
+    #contact{background:var(--dark)}
+    .ctc-in{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .ctc-h3{font-family:var(--font-d);font-size:1.4rem;font-weight:400;color:var(--white);margin-bottom:12px}
+    .ctc-p{font-size:.9rem;color:var(--silver);margin-bottom:40px;line-height:1.8}
+    .ctc-links{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+    .ctc-link{display:flex;align-items:center;gap:20px;padding:20px 24px;background:var(--dark2);transition:background .3s;position:relative;overflow:hidden}
+    .ctc-link::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background .3s}
+    .ctc-link:hover{background:var(--mid)}
+    .ctc-link:hover::before{background:var(--copper)}
+    .cl-ico{font-size:1.1rem;width:20px;text-align:center;color:var(--copper);flex-shrink:0}
+    .cl-inf{flex:1}
+    .cl-lbl{font-family:var(--font-m);font-size:.58rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+    .cl-val{font-size:.88rem;color:var(--white2)}
+    .cl-arr{color:var(--muted);font-size:.8rem;transition:transform .3s,color .3s}
+    .ctc-link:hover .cl-arr{transform:translateX(4px);color:var(--copper)}
+    .fg{margin-bottom:16px}
+    .fg label{display:block;font-family:var(--font-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+    .fg input,.fg textarea{width:100%;padding:14px 16px;background:var(--dark2);border:1px solid var(--border);color:var(--white2);font-family:var(--font-b);font-size:.9rem;transition:border-color .3s;resize:vertical;outline:none;-webkit-appearance:none}
+    .fg input:focus,.fg textarea:focus{border-color:var(--copper)}
+    .fg textarea{min-height:110px}
+    .fg-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .btn-sub{width:100%;padding:16px;background:var(--copper);color:var(--black);font-family:var(--font-m);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;transition:all .3s;margin-top:8px}
+    .btn-sub:hover{background:var(--copper2);transform:translateY(-1px)}
+
+    /* FOOTER */
+    footer{background:var(--black);border-top:1px solid var(--border);padding:48px 32px}
+    .foot-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
+    .foot-logo{font-family:var(--font-d);font-size:1rem;color:var(--white2)}
+    .foot-logo span{color:var(--copper)}
+    .foot-tech{font-family:var(--font-d);font-style:italic;color:var(--copper);font-size:.9rem}
+    .foot-links{display:flex;gap:32px}
+    .foot-links a{font-family:var(--font-m);font-size:.6rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;transition:color .3s}
+    .foot-links a:hover{color:var(--copper)}
+    .foot-copy{font-family:var(--font-m);font-size:.58rem;letter-spacing:.1em;color:var(--muted)}
+
+    /* MOBILE */
+    @media(max-width:900px){
+      #hero{grid-template-columns:1fr}
+      .hero-left{padding:120px 24px 64px;align-items:flex-end;min-height:100vh}
+      .hero-left::before{background:linear-gradient(0deg,var(--black) 50%,rgba(10,9,8,.6))}
+      .hero-right{display:none}
+      .about-in,.ctc-in{grid-template-columns:1fr;gap:48px}
+      .about-l{position:static}
+      .expo-grid{grid-template-columns:1fr}
+      .proc-track{grid-template-columns:1fr;gap:48px}
+      .gal-grid{grid-template-columns:1fr 1fr}
+      .m-box{grid-template-columns:1fr}
+      .m-imgs{min-height:280px}
+      #menuToggle{display:flex}
+      .nav-links{display:none;position:fixed;inset:72px 0 0;background:var(--black);flex-direction:column;padding:40px 32px;gap:28px;border-top:1px solid var(--border)}
+      .nav-links.open{display:flex}
+      .nav-links a{font-size:.85rem}
+      .fg-row{grid-template-columns:1fr}
+    }
+    @media(max-width:480px){
+      .section{padding:80px 0}
+      .gal-grid{grid-template-columns:1fr}
+      .card,.card:nth-child(1),.card:nth-child(4){aspect-ratio:4/3}
+      .hero-cta{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Elian <span>Varela</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#galerie" data-i18n="nav.galerie">Galerie</a></li>
+      <li><a href="#about" data-i18n="nav.about">Démarche</a></li>
+      <li><a href="#expositions" data-i18n="nav.expo">Expositions</a></li>
+      <li><a href="#processus" data-i18n="nav.process">Processus</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-controls">
+      <button class="nav-btn" id="langToggle">ES</button>
+      <button id="menuToggle">☰</button>
+    </div>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-content">
+      <span class="hero-tag" id="heroTag"></span>
+      <h1 class="hero-name">Elian Varela<br>Verdugo</h1>
+      <p class="hero-sub" id="heroPro"></p>
+      <p class="hero-loc" id="heroLoc"></p>
+      <p class="hero-phrase" id="heroPhrase"></p>
+      <div class="hero-cta">
+        <a href="#galerie" class="btn-cta" id="heroBtn1"></a>
+        <a href="#contact" class="btn-ghost" id="heroBtn2"></a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg" id="heroBg">
+      <div class="hero-ph"><div class="hero-ph-i">⚒</div><div class="hero-ph-t">images/hero.jpg</div></div>
+    </div>
+    <div class="hero-side-text">Tôle Martelée · Saint-Malo</div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span id="heroScroll"></span>
+  </div>
+</section>
+
+<section class="section" id="galerie">
+  <div class="container">
+    <div class="gal-header">
+      <div>
+        <span class="eyebrow reveal" id="galLabel"></span>
+        <h2 class="section-title reveal d1" id="galTitle"></h2>
+      </div>
+      <div class="gal-count reveal" id="galCount"></div>
+    </div>
+    <div class="gal-grid" id="galGrid"></div>
+  </div>
+</section>
+
+<div id="modal" role="dialog" aria-modal="true">
+  <div class="m-bg" id="mBg"></div>
+  <div class="m-box">
+    <button class="m-x" id="mX">✕</button>
+    <div class="m-imgs" id="mImgs"></div>
+    <div class="m-info">
+      <div class="m-ey" id="mEy"></div>
+      <h3 class="m-tit" id="mTit"></h3>
+      <div class="m-specs" id="mSpecs"></div>
+      <p class="m-desc" id="mDesc"></p>
+      <button class="m-close" id="mClose"></button>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-in">
+      <div class="about-l rl">
+        <div class="bio-ph-wrap" id="bioWrap">
+          <div class="bio-ph-empty">
+            <div style="font-size:3rem;opacity:.15">◎</div>
+            <div style="font-family:var(--font-m);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;opacity:.3">images/portrait.jpg</div>
+          </div>
+        </div>
+        <div class="bio-stats" id="bioStats"></div>
+      </div>
+      <div class="rr">
+        <span class="eyebrow" id="aboutLabel"></span>
+        <h2 class="section-title" id="aboutTitle"></h2>
+        <blockquote class="stmt-q" id="stmtQ"></blockquote>
+        <div class="stmt-txt" id="stmtTxt"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="expositions">
+  <div class="container">
+    <span class="eyebrow reveal" id="expoLabel"></span>
+    <h2 class="section-title reveal d1" id="expoTitle"></h2>
+    <div class="expo-grid reveal d2" id="expoGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="processus">
+  <div class="container">
+    <span class="eyebrow reveal" id="procLabel"></span>
+    <h2 class="section-title reveal d1" id="procTitle"></h2>
+    <div class="proc-track" id="procTrack"></div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="ctc-in">
+      <div class="rl">
+        <span class="eyebrow" id="ctcLabel"></span>
+        <h2 class="section-title" id="ctcTitle"></h2>
+        <h3 class="ctc-h3" id="ctcH3"></h3>
+        <p class="ctc-p" id="ctcP"></p>
+        <div class="ctc-links" id="ctcLinks"></div>
+      </div>
+      <div class="rr">
+        <form id="ctcForm"></form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <div class="foot-logo">Elian <span>Varela</span> Verdugo</div>
+    <p class="foot-tech">Tôle martelée · Acier · Métal recyclé</p>
+    <div class="foot-links" id="footLinks"></div>
+    <div class="foot-copy" id="footCopy"></div>
+  </div>
+</footer>
+
+<script>
+/* ╔═══════════════════════════════════════════════════════╗
+   ║  ████  EDITA AQUÍ — TODO EL SITIO SALE DE AQUÍ  ████  ║
+   ╚═══════════════════════════════════════════════════════╝ */
+const SITE = {
+  nombre:"Elian Varela Verdugo",
+  email:"elianvarela@live.com",
+  instagram:"@elianvv.escultor",
+  instagramUrl:"https://instagram.com/elianvv.escultor",
+  whatsapp:"+33 7 61 09 08 04",
+  whatsappUrl:"https://wa.me/33761090804",
+  ubicacion:"Saint-Malo, Bretagne — France",
+  heroImg:"images/hero.jpg",
+  portraitImg:"images/portrait.jpg",
+
+  fr:{
+    profession:"Sculpteur",
+    heroTag:"Tôle Martelée · Figuration Réaliste",
+    phrase:"<em>« Chaque sculpture naît du dialogue entre la force et la sensibilité »</em> — avec une esthétique qui croise le rustique et le poétique.",
+    heroBtn1:"Voir les œuvres",heroBtn2:"Contact",heroScroll:"Défiler",
+    bioCaption:"Elian Varela Verdugo — Saint-Malo, 2025",
+    stats:[{n:"13+",l:"Sculptures"},{n:"2023",l:"Depuis"},{n:"4",l:"Expositions"},{n:"3",l:"Pays"}],
+    aboutLabel:"Déclaration artistique",aboutTitle:"La matière comme langage",
+    quote:"Je transforme le métal blessé par le temps en formes qui portent mémoire, mouvement et vie.",
+    paragraphs:[
+      "Mon travail commence à partir de la tôle ou du fer, tous issus de déchets de l'industrie ou de la construction, auxquels je donne une seconde vie à travers l'art. Cette approche confère une charge symbolique à chaque œuvre, tout en reflétant un engagement envers l'environnement et la durabilité.",
+      "J'utilise la technique de la tôle martelée, qui me permet de transformer une matière rigide et dure en formes organiques pleines de mouvement, de gestualité et d'expression. Mon œuvre est influencée par la figuration réaliste, avec une grande attention portée aux détails, proportions et textures.",
+      "Né à Firmat (Santa Fe, Argentine, 1985), formé en Design industriel et sculpture à Rosario puis à Mendoza avec Leandro Pintos — aujourd'hui installé à Saint-Malo, où je construis des ponts culturels à travers le métal."
+    ],
+    galerie:{label:"Œuvres récentes",title:"Galerie"},
+    expo:{label:"Parcours & Presse",title:"Expositions"},
+    processus:{label:"L'atelier",title:"Le processus",steps:[
+      {icon:"⚿",title:"Collecte",text:"Je cherche les matières premières dans les déchèteries et chantiers navals de Saint-Malo. Chaque fragment est sélectionné pour sa texture, son histoire et ses possibilités formelles."},
+      {icon:"🔨",title:"Forge",text:"La tôle est chauffée, martelée, pliée et soudée. Ce processus physique est aussi une conversation : le métal répond, résiste, propose des directions imprévues."},
+      {icon:"✦",title:"Patine & Finition",text:"Patine naturelle, polissage sélectif, traitement de surface. La pièce trouve sa lumière définitive selon l'émotion qu'elle doit transmettre."}
+    ]},
+    contact:{label:"Contact",title:"Entrer en contact",heading:"Commandes, expositions & collaborations",subtext:"Disponible pour l'acquisition d'œuvres, commandes sur mesure et expositions en France et à l'international.",form:{name:"Nom",email:"E-mail",subject:"Sujet",message:"Message",submit:"Envoyer"}},
+    nav:{galerie:"Galerie",about:"Démarche",expo:"Expositions",process:"Processus",contact:"Contact"},
+    footer:{copy:"© {y} Elian Varela Verdugo. Tous droits réservés."},
+    modal:{close:"Fermer",year:"Année",tech:"Technique",dims:"Dimensions"}
+  },
+
+  es:{
+    profession:"Escultor",
+    heroTag:"Chapa Batida · Figuración Realista",
+    phrase:"<em>« Cada escultura nace del diálogo entre la fuerza y la sensibilidad »</em> — con una estética que cruza lo rústico y lo poético.",
+    heroBtn1:"Ver obras",heroBtn2:"Contacto",heroScroll:"Desplazar",
+    bioCaption:"Elian Varela Verdugo — Saint-Malo, 2025",
+    stats:[{n:"13+",l:"Esculturas"},{n:"2023",l:"Desde"},{n:"4",l:"Exposiciones"},{n:"3",l:"Países"}],
+    aboutLabel:"Declaración artística",aboutTitle:"La materia como lenguaje",
+    quote:"Transformo el metal herido por el tiempo en formas que portan memoria, movimiento y vida.",
+    paragraphs:[
+      "Mi trabajo parte de la chapa o el hierro, todos procedentes de residuos industriales o de la construcción, a los que doy una segunda vida a través del arte. Este enfoque carga de significado simbólico cada obra, reflejando un compromiso con el medioambiente.",
+      "Utilizo la técnica de la chapa batida, que me permite transformar una materia rígida en formas orgánicas llenas de movimiento, gestualidad y expresión. Mi obra está influenciada por la figuración realista, con gran atención al detalle, las proporciones y las texturas.",
+      "Nacido en Firmat (Santa Fe, Argentina, 1985), formado en Diseño industrial y escultura en Rosario y Mendoza con Leandro Pintos — hoy instalado en Saint-Malo, donde construyo puentes culturales a través del metal."
+    ],
+    galerie:{label:"Obras recientes",title:"Galería"},
+    expo:{label:"Trayectoria & Prensa",title:"Exposiciones"},
+    processus:{label:"El taller",title:"El proceso",steps:[
+      {icon:"⚿",title:"Recolección",text:"Busco materias primas en chatarrerías y astilleros de Saint-Malo. Cada fragmento se selecciona por su textura, historia y posibilidades formales."},
+      {icon:"🔨",title:"Forja",text:"La chapa se calienta, golpea, dobla y suelda. Este proceso físico es también una conversación: el metal responde, resiste y propone direcciones imprevistas."},
+      {icon:"✦",title:"Pátina & Acabado",text:"Pátina natural, pulido selectivo, tratamiento de superficie. La pieza encuentra su luz definitiva según la emoción que debe transmitir."}
+    ]},
+    contact:{label:"Contacto",title:"Ponerse en contacto",heading:"Encargos, exposiciones & colaboraciones",subtext:"Disponible para adquisición de obras, encargos a medida y exposiciones en Francia e internacional.",form:{name:"Nombre",email:"Correo",subject:"Asunto",message:"Mensaje",submit:"Enviar"}},
+    nav:{galerie:"Galería",about:"Propuesta",expo:"Exposiciones",process:"Proceso",contact:"Contacto"},
+    footer:{copy:"© {y} Elian Varela Verdugo. Todos los derechos reservados."},
+    modal:{close:"Cerrar",year:"Año",tech:"Técnica",dims:"Dimensiones"}
+  },
+
+  /* ══ OBRAS REALES DEL DOSSIER ══
+     images[]: pon tus fotos en la carpeta images/ con estos nombres.
+     Si no existe la imagen, se muestra un bloque oscuro automáticamente. */
+  obras:[
+    {title:{fr:"Cerf élaphe",es:"Ciervo élaphe"},technique:"Tôle martelée",year:2026,dimensions:"105 × 85 × 55 cm",
+      description:{fr:"Tête de cerf monumentale forgée en tôle martelée. Les bois rayonnent vers le ciel breton. La crinière est composée de plaques superposées qui captent la lumière différemment selon l'angle de vue.",es:"Cabeza de ciervo monumental forjada en chapa batida. Los cuernos se irradian hacia el cielo bretón. La crin está compuesta de placas superpuestas que capturan la luz de manera diferente según el ángulo."},
+      images:["images/cerf.jpg","images/cerf_det.jpg"]},
+    {title:{fr:"Homard",es:"Bogavante"},technique:"Tôle martelée",year:2026,dimensions:"65 × 45 × 20 cm",
+      description:{fr:"Hommage à la faune maritime bretonne. Chaque patte, antenne et texture de carapace est rendue avec une précision hyperréaliste en métal récupéré. Une œuvre née de la mer de Saint-Malo.",es:"Homenaje a la fauna marítima bretona. Cada pata, antena y textura del caparazón está reproducida con precisión hiperrealista en metal recuperado. Una obra nacida del mar de Saint-Malo."},
+      images:["images/homard.jpg"]},
+    {title:{fr:"Malouine, et le désir d'être mouette",es:"Malouine, y el deseo de ser gaviota"},technique:"Tôle martelée",year:2025,dimensions:"105 × 85 × 55 cm",
+      description:{fr:"Figure ailée monumentale — corps humain couronné d'ailes déployées. Inspirée des légendes bretonnes et de la liberté des mouettes de Saint-Malo. Première grande pièce créée depuis l'installation en France.",es:"Figura alada monumental — cuerpo humano coronado de alas desplegadas. Inspirada en las leyendas bretonas y la libertad de las gaviotas de Saint-Malo. Primera gran pieza creada desde la instalación en Francia."},
+      images:["images/malouine.jpg","images/malouine_det.jpg"]},
+    {title:{fr:"L'araignée de mer et le raisin",es:"La araña de mar y la uva"},technique:"Tôle Martelée",year:2025,dimensions:"40 × 40 × 25 cm",
+      description:{fr:"Araignée de mer en métal recyclé d'une précision remarquable. Chaque articulation et relief de la carapace témoigne d'une maîtrise technique exceptionnelle de la tôle comme matière sculpturale.",es:"Araña de mar en metal reciclado de notable precisión. Cada articulación y relieve del caparazón testimonia un dominio técnico excepcional de la chapa como materia escultórica."},
+      images:["images/araignee.jpg"]},
+    {title:{fr:"La Création du Vin",es:"La Creación del Vino"},technique:"Tôle Martelée",year:2025,dimensions:"60 × 40 × 60 cm",
+      description:{fr:"Réinterprétation de la Création d'Adam de Michel-Ange : la main divine rencontre une vigne plutôt qu'Adam. Une grappe de raisin en métal s'étend vers le toucher divin. Hommage aux vignerons et à la culture du vin.",es:"Reinterpretación de La Creación de Adán de Miguel Ángel: la mano divina encuentra una vid en lugar de Adán. Un racimo de uva en metal se extiende hacia el toque divino. Homenaje a los viticultores."},
+      images:["images/creation_vin.jpg","images/creation_vin_det.jpg"]},
+    {title:{fr:"Équilibre",es:"Equilibrio"},technique:"Tôle martelée",year:2025,dimensions:"30 × 30 × 80 cm",
+      description:{fr:"Femme suspendue dans un instant de grâce infinie, posée sur un seul pied. Sa nudité est émotionnelle — une invitation à se montrer sans masques. L'équilibre délicat que nous cherchons tous entre force et fragilité.",es:"Mujer suspendida en un instante de gracia infinita, sobre un solo pie. Su desnudez es emocional — una invitación a mostrarse sin máscaras. El delicado equilibrio que todos buscamos entre fuerza y fragilidad."},
+      images:["images/equilibre.jpg","images/equilibre_expo.jpg"]},
+    {title:{fr:"Taureau immense",es:"Toro inmenso"},technique:"Tôle Martelée",year:2025,dimensions:"60 × 40 × 60 cm",
+      description:{fr:"Muscles tendus, regard fixe, posture de combat. Les cicatrices du métal deviennent textures de l'histoire gravée. Pas seulement un taureau : un symbole de résistance, de dévouement et de persévérance.",es:"Músculos tensos, mirada fija, postura de combate. Las cicatrices del metal se convierten en texturas de la historia grabada. No solo un toro: un símbolo de resistencia, devoción y perseverancia."},
+      images:["images/taureau.jpg"]},
+    {title:{fr:"Carancho mendocino",es:"Carancho mendocino"},technique:"Tôle Martelée",year:2025,dimensions:"60 × 40 × 60 cm",
+      description:{fr:"Rapace argentin perché sur une branche tordue en métal. Chaque plume est une feuille de tôle martelée individuelle. La force et l'élégance de l'oiseau pampéen capturées dans l'acier.",es:"Rapaz argentina posada sobre una rama torcida en metal. Cada pluma es una hoja de chapa batida individual. La fuerza y elegancia del ave pampeana capturadas en el acero."},
+      images:["images/carancho.jpg"]},
+    {title:{fr:"Shugendó",es:"Shugendó"},technique:"Tôle martelée",year:2024,dimensions:"35 × 40 × 80 cm",
+      description:{fr:"Figure de yamabushi — ascète japonais pratiquant le Shugendô. L'œuvre capture l'essence de la sagesse et de la connexion à la nature, avec une attention particulière aux drapés de tôle qui imitent les robes traditionnelles.",es:"Figura de yamabushi — asceta japonés que practica el Shugendô. La obra captura la esencia de la sabiduría y la conexión con la naturaleza, con especial atención a los pliegues de chapa que imitan las vestiduras tradicionales."},
+      images:["images/shugendo.jpg","images/shugendo_det.jpg"]},
+    {title:{fr:"Profondeur",es:"Profundidad"},technique:"Tôle martelée, bois",year:2023,dimensions:"20 × 30 × 30 cm",
+      description:{fr:"Deux baleines symbolisant la transmission intergénérationnelle. La grande, couverte de marques et cicatrices métalliques, guide la jeune à la surface lisse en bois. Les cicatrices font partie de la croissance.",es:"Dos ballenas que simbolizan la transmisión intergeneracional. La grande, cubierta de marcas y cicatrices metálicas, guía a la joven de superficie lisa en madera. Las cicatrices son parte del crecimiento."},
+      images:["images/profondeur.jpg"]},
+    {title:{fr:"Expédition",es:"Expedición"},technique:"Tôle martelée, racine d'olivier",year:2023,dimensions:"40 × 40 × 60 cm",
+      description:{fr:"Tortue en tôle martelée posée sur une racine d'olivier — combinaison de métal industriel et de bois naturel. L'animal lent et patient comme métaphore du chemin qui importe plus que la destination.",es:"Tortuga en chapa batida posada sobre una raíz de olivo — combinación de metal industrial y madera natural. El animal lento y paciente como metáfora del camino que importa más que el destino."},
+      images:["images/expedition.jpg","images/expedition_det.jpg"]},
+    {title:{fr:"Captivité Silencieuse",es:"Cautiverio Silencioso"},technique:"Tôle martelée",year:2023,dimensions:"20 × 30 × 30 cm",
+      description:{fr:"Taureau puissant enchaîné par une fine chaîne qu'il pourrait briser d'un seul mouvement. Métaphore des limites auto-imposées : nous sommes souvent prisonniers de nos propres peurs, doutes et insécurités.",es:"Toro poderoso encadenado por una fina cadena que podría romper con un solo movimiento. Metáfora de los límites auto-impuestos: somos prisioneros de nuestros propios miedos, dudas e inseguridades."},
+      images:["images/captivite.jpg","images/captivite_det.jpg"]},
+    {title:{fr:"Lien",es:"Vínculo"},technique:"Forgé Tôle",year:2025,dimensions:"60 × 40 × 60 cm",
+      description:{fr:"Deux chevaux soudés formant un corps unique. Le mouvement figé dans le métal poli évoque la vitesse, la liberté et le lien indéfectible. L'acier non traité révèle toute sa luminosité.",es:"Dos caballos soldados formando un cuerpo único. El movimiento congelado en el metal pulido evoca la velocidad, la libertad y el vínculo inquebrantable. El acero sin tratar revela toda su luminosidad."},
+      images:["images/lien.jpg"]}
+  ],
+
+  /* ══ EXPOSICIONES REALES ══ */
+  expos:[
+    {year:2025,name:{fr:"Alliance Française de Mendoza — 70e Anniversaire",es:"Alliance Française de Mendoza — 70º Aniversario"},venue:{fr:"Théâtre Indépendance, Mendoza",es:"Teatro Independencia, Mendoza"},city:"Mendoza, Argentina",
+      desc:{fr:"Création de l'œuvre «Alliance» pour les 70 ans de l'AF. Présence du Coordinateur des Alliances Françaises en Argentine et d'autorités provinciales.",es:"Creación de la obra «Alianza» para los 70 años de la AF. Presencia del Coordinador de las Alianzas Francesas en Argentina y autoridades provinciales."}},
+    {year:2025,name:{fr:"«Retour à mes racines»",es:"«Retorno a mis raíces»"},venue:{fr:"Mairie de Firmat — Inauguration officielle",es:"Municipalidad de Firmat — Inauguración oficial"},city:"Firmat, Santa Fe, Argentina",
+      desc:{fr:"11 sculptures. Présence du Maire Leonel Maximino. Œuvre commémorant le 137e anniversaire de la Ville de Firmat.",es:"11 esculturas. Presencia del Intendente Leonel Maximino. Obra de conmemoración del 137.º aniversario de la ciudad de Firmat."}},
+    {year:2024,name:{fr:"Exposition personnelle",es:"Exposición personal"},venue:{fr:"Alliance Française de Mendoza",es:"Alliance Française de Mendoza"},city:"Mendoza, Argentina",
+      desc:{fr:"Vernissage privé, 60 invités. Œuvres en métal et matériaux récupérés, accompagnées de vins Autenta Wines et fromages français.",es:"Vernissage privado, 60 invitados. Obras en metal y materiales recuperados, acompañadas de vinos Autenta Wines y quesos franceses."}},
+    {year:2023,name:{fr:"«INESTABLES» — Collectif artistique",es:"«INESTABLES» — Colectivo artístico"},venue:{fr:"Sénat de Mendoza (Cámara de Senadores)",es:"Senado de Mendoza (Cámara de Senadores)"},city:"Mendoza, Argentina",
+      desc:{fr:"Collectif multidisciplinaire explorant la fragilité et les instabilités sociales à travers sculptures en bois, tôle, fer et matériaux recyclés.",es:"Colectivo multidisciplinario que explora la fragilidad y las inestabilidades sociales a través de esculturas en madera, chapa, hierro y materiales reciclados."}}
+  ]
+};
+
+/* ══ MOTOR ══ */
+let lang='fr';
+const L=o=>typeof o==='object'?(o[lang]??o.fr):o;
+const T=p=>p.split('.').reduce((o,k)=>o?.[k],SITE[lang])??'';
+
+function imgEl(src,alt,cls){
+  const i=document.createElement('img');
+  i.src=src; i.alt=alt; i.className=cls||'';
+  i.onerror=function(){
+    const ph=document.createElement('div');
+    ph.className='card-ph';
+    ph.innerHTML=`<i>⚒</i><s>${alt}</s>`;
+    this.replaceWith(ph);
+  };
+  return i;
+}
+
+function renderHero(){
+  const d=SITE[lang];
+  document.getElementById('heroTag').textContent=d.heroTag;
+  document.getElementById('heroPro').textContent=d.profession;
+  document.getElementById('heroLoc').textContent=SITE.ubicacion;
+  document.getElementById('heroPhrase').innerHTML=d.phrase;
+  document.getElementById('heroBtn1').textContent=d.heroBtn1;
+  document.getElementById('heroBtn2').textContent=d.heroBtn2;
+  document.getElementById('heroScroll').textContent=d.heroScroll;
+  const bg=document.getElementById('heroBg');
+  const i=new Image(); i.src=SITE.heroImg; i.alt=SITE.nombre;
+  i.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:.7;animation:hZoom 12s ease-in-out infinite alternate';
+  i.onload=()=>{bg.innerHTML=''; bg.appendChild(i);};
+}
+
+function renderGallery(){
+  const s=SITE[lang].galerie;
+  document.getElementById('galLabel').textContent=s.label;
+  document.getElementById('galTitle').textContent=s.title;
+  document.getElementById('galCount').textContent=`${SITE.obras.length} ${lang==='fr'?'œuvres':'obras'}`;
+  const g=document.getElementById('galGrid'); g.innerHTML='';
+  SITE.obras.forEach((o,i)=>{
+    const card=document.createElement('div');
+    card.className='card reveal';
+    card.style.transitionDelay=(i%3*.1)+'s';
+    card.setAttribute('role','button'); card.setAttribute('tabindex','0');
+    card.appendChild(imgEl(o.images[0],L(o.title),'card-img'));
+    card.innerHTML+=`<div class="card-ov"><div class="c-num">— ${String(i+1).padStart(2,'0')}</div><div class="c-tit">${L(o.title)}</div><div class="c-met"><span>${o.year}</span><span>${o.technique}</span></div></div><div class="c-arr">↗</div>`;
+    card.addEventListener('click',()=>openModal(i));
+    card.addEventListener('keydown',e=>e.key==='Enter'&&openModal(i));
+    g.appendChild(card);
+  });
+  observe();
+}
+
+let mImgs=[],mIdx=0;
+function openModal(i){
+  const o=SITE.obras[i]; const m=SITE[lang].modal;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+  mImgs=o.images; mIdx=0; renderMImgs();
+  document.getElementById('mEy').textContent=`${String(i+1).padStart(2,'0')} / ${SITE.obras.length}`;
+  document.getElementById('mTit').textContent=L(o.title);
+  document.getElementById('mSpecs').innerHTML=`<div class="sp-r"><span class="sp-l">${m.year}</span><span class="sp-v">${o.year}</span></div><div class="sp-r"><span class="sp-l">${m.tech}</span><span class="sp-v">${o.technique}</span></div><div class="sp-r"><span class="sp-l">${m.dims}</span><span class="sp-v">${o.dimensions}</span></div>`;
+  document.getElementById('mDesc').textContent=L(o.description);
+  document.getElementById('mClose').textContent='← '+m.close;
+}
+function renderMImgs(){
+  const c=document.getElementById('mImgs'); c.innerHTML='';
+  const i=document.createElement('img');
+  i.src=mImgs[mIdx]; i.alt='sculpture';
+  i.style.cssText='width:100%;height:100%;object-fit:cover';
+  i.onerror=()=>{c.innerHTML='<div class="m-ph">⚒</div>';};
+  c.appendChild(i);
+  if(mImgs.length>1){const d=document.createElement('div');d.className='m-dots';mImgs.forEach((_,di)=>{const dot=document.createElement('div');dot.className='dot'+(di===mIdx?' active':'');dot.addEventListener('click',()=>{mIdx=di;renderMImgs();});d.appendChild(dot);});c.appendChild(d);}
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+
+function renderAbout(){
+  const d=SITE[lang];
+  document.getElementById('aboutLabel').textContent=d.aboutLabel;
+  document.getElementById('aboutTitle').textContent=d.aboutTitle;
+  document.getElementById('stmtQ').textContent=d.quote;
+  document.getElementById('stmtTxt').innerHTML=d.paragraphs.map(p=>`<p>${p}</p>`).join('');
+  document.getElementById('bioStats').innerHTML=d.stats.map(s=>`<div class="stat"><div class="stat-n">${s.n}</div><div class="stat-l">${s.l}</div></div>`).join('');
+  const wrap=document.getElementById('bioWrap');
+  const pi=new Image(); pi.src=SITE.portraitImg; pi.alt=SITE.nombre;
+  pi.style.cssText='width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(.2)contrast(1.05)';
+  pi.onload=()=>{wrap.innerHTML=''; wrap.appendChild(pi); const cap=document.createElement('div'); cap.className='bio-cap'; cap.textContent=d.bioCaption; wrap.appendChild(cap);};
+}
+
+function renderExpos(){
+  const e=SITE[lang].expo;
+  document.getElementById('expoLabel').textContent=e.label;
+  document.getElementById('expoTitle').textContent=e.title;
+  document.getElementById('expoGrid').innerHTML=SITE.expos.map(ex=>`<div class="expo-card reveal"><div class="expo-yr">${ex.year}</div><div class="expo-nm">${L(ex.name)}</div><div class="expo-ve">${L(ex.venue)}</div><div class="expo-ci">${ex.city}</div><div class="expo-ds">${L(ex.desc)}</div></div>`).join('');
+}
+
+function renderProcess(){
+  const p=SITE[lang].processus;
+  document.getElementById('procLabel').textContent=p.label;
+  document.getElementById('procTitle').textContent=p.title;
+  document.getElementById('procTrack').innerHTML=p.steps.map((s,i)=>`<div class="proc-step reveal d${i+1}"><div class="proc-nc"><div class="proc-circle">0${i+1}</div></div><div class="proc-icon">${s.icon}</div><h3>${s.title}</h3><p>${s.text}</p></div>`).join('');
+}
+
+function renderContact(){
+  const c=SITE[lang].contact;
+  document.getElementById('ctcLabel').textContent=c.label;
+  document.getElementById('ctcTitle').textContent=c.title;
+  document.getElementById('ctcH3').textContent=c.heading;
+  document.getElementById('ctcP').textContent=c.subtext;
+  document.getElementById('ctcLinks').innerHTML=`<a class="ctc-link" href="mailto:${SITE.email}"><span class="cl-ico">✉</span><div class="cl-inf"><div class="cl-lbl">Email</div><div class="cl-val">${SITE.email}</div></div><span class="cl-arr">→</span></a><a class="ctc-link" href="${SITE.instagramUrl}" target="_blank" rel="noopener"><span class="cl-ico">◎</span><div class="cl-inf"><div class="cl-lbl">Instagram</div><div class="cl-val">${SITE.instagram}</div></div><span class="cl-arr">→</span></a><a class="ctc-link" href="${SITE.whatsappUrl}" target="_blank" rel="noopener"><span class="cl-ico">◈</span><div class="cl-inf"><div class="cl-lbl">WhatsApp</div><div class="cl-val">${SITE.whatsapp}</div></div><span class="cl-arr">→</span></a>`;
+  const f=c.form;
+  document.getElementById('ctcForm').innerHTML=`<div class="fg-row"><div class="fg"><label>${f.name}</label><input type="text" name="name" required placeholder="${f.name}"/></div><div class="fg"><label>${f.email}</label><input type="email" name="email" required placeholder="${f.email}"/></div></div><div class="fg"><label>${f.subject}</label><input type="text" name="subject" placeholder="${f.subject}"/></div><div class="fg"><label>${f.message}</label><textarea name="message" placeholder="${f.message}"></textarea></div><button type="submit" class="btn-sub">${f.submit}</button>`;
+}
+
+function renderFooter(){
+  const anchors=['#galerie','#about','#contact'];
+  const labels=[T('nav.galerie'),T('nav.about'),T('nav.contact')];
+  document.getElementById('footLinks').innerHTML=labels.map((l,i)=>`<a href="${anchors[i]}">${l}</a>`).join('');
+  document.getElementById('footCopy').textContent=SITE[lang].footer.copy.replace('{y}',new Date().getFullYear());
+}
+function renderNav(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const v=T(el.dataset.i18n);if(v)el.textContent=v;});
+  document.getElementById('langToggle').textContent=lang==='fr'?'ES':'FR';
+  document.documentElement.lang=lang;
+}
+
+function renderAll(){renderHero();renderGallery();renderAbout();renderExpos();renderProcess();renderContact();renderFooter();renderNav();observe();}
+
+function observe(){
+  const els=document.querySelectorAll('.reveal:not(.visible),.rl:not(.visible),.rr:not(.visible)');
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08});
+  els.forEach(el=>obs.observe(el));
+}
+
+/* cursor */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+
+/* events */
+document.getElementById('langToggle').addEventListener('click',()=>{lang=lang==='fr'?'es':'fr';renderAll();});
+document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+document.getElementById('mBg').addEventListener('click',closeModal);
+document.getElementById('mX').addEventListener('click',closeModal);
+document.getElementById('mClose').addEventListener('click',closeModal);
+document.addEventListener('keydown',e=>e.key==='Escape'&&closeModal());
+document.getElementById('ctcForm').addEventListener('submit',e=>{
+  e.preventDefault();const fd=new FormData(e.target);
+  const sub=encodeURIComponent(fd.get('subject')||'Contact Portfolio');
+  const body=encodeURIComponent(`${fd.get('name')}\n\n${fd.get('message')}`);
+  window.location.href=`mailto:${SITE.email}?subject=${sub}&body=${body}`;
+});
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40));
+
+renderAll();
+</script>
+
+<!--
+════════════════════════════════════════════════════════
+  GUÍA RÁPIDA — EDITAR · IMÁGENES · PUBLICAR
+════════════════════════════════════════════════════════
+
+  EDITAR TEXTOS:
+  → Busca "EDITA AQUÍ" en el <script>
+  → Cambia valores entre comillas del objeto SITE
+  → email, instagram, whatsapp → tus datos de contacto
+  → paragraphs[] → tu bio en FR y ES
+
+  IMÁGENES (crea carpeta "images/" junto al index.html):
+  images/hero.jpg        → foto portada (1920×1080px)
+  images/portrait.jpg    → tu foto perfil (800×1100px)
+  images/cerf.jpg        → Cerf élaphe
+  images/homard.jpg      → Homard
+  images/malouine.jpg    → Malouine
+  images/araignee.jpg    → Araignée de mer
+  images/creation_vin.jpg→ La Création du Vin
+  images/equilibre.jpg   → Équilibre
+  images/taureau.jpg     → Taureau immense
+  images/carancho.jpg    → Carancho mendocino
+  images/shugendo.jpg    → Shugendó
+  images/profondeur.jpg  → Profondeur
+  images/expedition.jpg  → Expédition
+  images/captivite.jpg   → Captivité Silencieuse
+  images/lien.jpg        → Lien
+  → Recomendado: JPG < 300KB, mín 1200px de ancho
+  → Comprimir gratis en squoosh.app
+
+  AGREGAR OBRA NUEVA:
+  → En SITE.obras[], copia un bloque {} existente
+  → Edita title, technique, year, dimensions, description, images[]
+  → Añade la foto en images/ con el nombre indicado
+
+  PUBLICAR GRATIS EN INTERNET:
+  → netlify.com → "Deploy manually" → arrastra la carpeta
+  → En 30 segundos tienes URL online gratuita
+  → Conecta tu dominio elianvarela.com en la configuración
+
+════════════════════════════════════════════════════════
+-->
+</body>
+</html>
